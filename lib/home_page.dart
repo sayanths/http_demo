@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_api_demo/apis.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final _numberInputController = TextEditingController();
+
+  String _resultText = 'type text and show result';
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +31,17 @@ class HomePage extends StatelessWidget {
             ),
             Center(
                 child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       final _number = _numberInputController.text;
-                      
-                      getNumber(number: _number);
+
+                      final result = await getNumber(number: _number);
+                      print(result);
+                      setState(() {
+                        _resultText = result.text ?? 'no text found';
+                      });
                     },
-                    child: Text("data")))
+                    child: Text("data"))),
+                    Text(_resultText),
           ],
         ),
       ),
