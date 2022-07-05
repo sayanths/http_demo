@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:flutter_api_demo/apis.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  final _numberInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextFormField(
+              controller: _numberInputController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'number',
+              ),
+            ),
+            Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      final _number = _numberInputController.text;
+                      
+                      getNumber(number: _number);
+                    },
+                    child: Text("data")))
+          ],
+        ),
+      ),
     );
   }
 }
